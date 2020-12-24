@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SignupLoginModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="depId" />
+    </Key>
+    <Property Name="depId" Type="int" Nullable="false" />
+    <Property Name="depName" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="empId" />
+    </Key>
+    <Property Name="empId" Type="int" Nullable="false" />
+    <Property Name="empName" Type="varchar" MaxLength="255" />
+    <Property Name="empSalary" Type="int" />
+    <Property Name="empDesignation" Type="varchar" MaxLength="255" />
+    <Property Name="depId" Type="int" />
+  </EntityType>
+  <Association Name="FK__Employee__depId__286302EC">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="depId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="depId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SignupLoginModelStoreContainer">
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Employee__depId__286302EC" Association="Self.FK__Employee__depId__286302EC">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
